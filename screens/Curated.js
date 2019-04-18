@@ -24,24 +24,32 @@ export default class Curated extends React.Component {
     }
     this.updateFilters = this.updateFilters.bind(this)
   }
+  componentDidUpdate() {
+    console.log('filters in update', this.state.filters)
+  }
 
-  updateFilters(arg) {
-    let key = arg.value
-    switch (arg.key) {
+  updateFilters(obj) {
+    let valueToChange = obj.value
+    let queryName = obj.key
+    console.log('queryName in switch', queryName)
+    switch (queryName) {
+
       case "abv_lt":
-        this.setState({ ...this.state, abv_lt: key })
+        this.setState({ filters: { ...this.state.filters, abv_lt: valueToChange } })
         break;
       case "abv_gt":
-        this.setState({ ...this.state, abv_gt: key })
+        this.setState({ filters: { ...this.state.filters, abv_gt: valueToChange } })
         break;
       case "ibu_lt":
-        this.setState({ ...this.state, ibu_lt: key })
+        this.setState({ filters: { ...this.state.filters, ibu_lt: valueToChange } })
         break;
       case "ibu_gt":
-        this.setState({ ...this.state, ibu_gt: key })
+        this.setState({ filters: { ...this.state.filters, ibu_gt: valueToChange } })
         break;
       case "beer_name":
-        this.setState({ ...this.state, beer_name: key })
+        this.setState({ filters: { ...this.state.filters, beer_name: valueToChange } })
+
+
         break;
       default:
         this.setState({ ...this.state })
@@ -83,6 +91,15 @@ export default class Curated extends React.Component {
 
 
             <Text style={styles.getStartedText}>Specify Your Wishes</Text>
+            {Object.keys(this.state.filters).length ?
+              <Text style={styles.getStartedText}>
+                Listening to your specifications
+     </Text>
+              :
+              <Text style={styles.getStartedText}>
+                You havent made choices
+</Text>
+            }
 
             {this.state.beers.length ?
 
@@ -98,7 +115,29 @@ export default class Curated extends React.Component {
 
 
         </ScrollView>
+        {this.state.beers.length ?
+          <View style={styles.welcomeContainer}>
+            <TouchableOpacity onPress={() => this.setState({ beers: [], filters: {} })} >
 
+              <Image
+                source={
+                  require('../assets/images/laocoon.png')
+                }
+                style={styles.laocoonImage}
+              />
+            </TouchableOpacity>
+          </View>
+          :
+          <View>
+            <Text style={styles.getStartedText}>
+              When Laocoon appears
+            </Text>
+            <Text style={styles.getStartedText}>
+              tap him to reset your choices
+            </Text>
+          </View>
+
+        }
 
 
       </View>
@@ -142,6 +181,13 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
+  },
+  laocoonImage: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
   }
 });
 
