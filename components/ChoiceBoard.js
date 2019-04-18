@@ -10,7 +10,7 @@ export default class ChoiceBoard extends React.Component {
   constructor() {
     super()
     this.state = {
-      type: ''
+      type: 'beer style'
     }
   }
 
@@ -61,13 +61,20 @@ export default class ChoiceBoard extends React.Component {
         </View>
         <View style={styles.buttonContainer}>
           <Picker
-            // selectedValue={this.state.type}
-            style={{ height: 50, width: 100 }}
+
+            style={{ height: 50, width: 200 }}
             onValueChange={(itemValue) => updateFilters({ key: "beer_name", value: itemValue })
 
             }>
+            <Picker.Item label="Beer Style" value="Beer" />
             <Picker.Item label="IPA" value="IPA" />
             <Picker.Item label="Lager" value="Lager" />
+            <Picker.Item label="Pilsner" value="Pilsner" />
+            <Picker.Item label="Ale" value="Ale" />
+            <Picker.Item label="Pale Ale" value="Pale Ale" />
+            <Picker.Item label="Hefeweizen" value="Hefeweizen" />
+            <Picker.Item label="Witbier" value="Witbier" />
+
           </Picker>
         </View>
 
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 50,
-    width: 50,
+    width: 200,
     justifyContent: 'center',
     padding: 5,
     margin: 5

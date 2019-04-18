@@ -27,7 +27,9 @@ HomeStack.navigationOptions = {
 
 const CuratedStack = createStackNavigator({
   Curated: Curated,
-});
+},
+  { headerMode: 'none' }
+);
 
 CuratedStack.navigationOptions = {
   tabBarLabel: 'Curated',
